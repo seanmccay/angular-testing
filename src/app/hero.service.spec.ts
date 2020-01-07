@@ -28,7 +28,7 @@ describe('Hero Service (integration tests)', () => {
   describe('getHero', () => {
     it('should call get with the correct url', () => {
       service.getHero(4).subscribe(() => {
-        console.log('does not execute until the request is flushed');
+        // does not execute until the request is flushed
       });
 
       const request = httpTestingController.expectOne('api/heroes/4');

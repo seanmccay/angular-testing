@@ -60,7 +60,18 @@ describe('Heroes Component (unit tests)', () => {
       expect(mockHeroService.deleteHero).toHaveBeenCalledWith(HEROES[2]);
     });
 
-    it('should subscribe to the observable of heroService.deleteHero', () => {});
+    it('should subscribe to the observable of heroService.deleteHero', () => {
+      mockHeroService.deleteHero.and.returnValue(of(new Hero()));
+      component.heroes = HEROES;
+
+      // ? does this work the way I think it is or is this a false positive?
+      const observable = mockHeroService.deleteHero();
+      spyOn(observable, 'subscribe');
+
+      component.delete(HEROES[2]);
+
+      expect(observable.subscribe).toHaveBeenCalled();
+    });
   });
 });
 
